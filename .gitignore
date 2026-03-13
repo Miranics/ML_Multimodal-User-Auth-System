@@ -7,11 +7,11 @@ venv/
 .env
 
 # Data outputs
-data/processed/*.csv
-artifacts/*.joblib
-artifacts/*.pkl
-reports/*.png
-reports/*.json
+# data/processed/*.csv
+# artifacts/*.joblib
+# artifacts/*.pkl
+# reports/*.png
+# reports/*.json
 
 # OS/Editor
 .DS_Store
