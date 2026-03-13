@@ -27,7 +27,14 @@ from src.config import (
 from src.utils import save_json
 
 
-TARGET_CANDIDATES = ["product", "product_name", "purchased_product", "item", "target"]
+TARGET_CANDIDATES = [
+    "product",
+    "product_name",
+    "purchased_product",
+    "item",
+    "target",
+    "product_category",
+]
 
 
 def _safe_metrics(y_true: np.ndarray, y_pred: np.ndarray, y_proba: np.ndarray | None = None) -> dict[str, float]:
