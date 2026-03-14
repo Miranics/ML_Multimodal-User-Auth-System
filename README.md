@@ -1,7 +1,6 @@
 # ML_Multimodal-User-Auth-System
 
-Multimodal authentication + product recommendation pipeline for the Formative 2 assignment.
-
+Multimodal authentication + product recommendation pipeline for the 
 This repository implements:
 - Tabular merge + feature engineering
 - Face feature extraction + face identity model
@@ -131,9 +130,3 @@ Expected logic:
 	- [src/audio_pipeline.py](src/audio_pipeline.py)
 	- [src/train_models.py](src/train_models.py)
 	- [src/auth_system_cli.py](src/auth_system_cli.py)
-
-## Notes
-
-- The notebook can be done in Google Colab as requested.
-- This codebase is prepared for your local/script deliverables.
-- Add real team data to improve model quality and final metrics.
