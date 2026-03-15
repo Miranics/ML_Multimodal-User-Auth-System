@@ -120,7 +120,7 @@ Expected logic:
 4. Voice identity predicted
 5. If voice matches face and confidence is enough -> approved and product displayed
 
-## 7) Assignment Deliverables Mapping
+## 7) Deliverables Mapping 
 
 - Merged dataset + feature engineering: [data/processed/merged_features.csv](data/processed/merged_features.csv)
 - Image features: [data/processed/image_features.csv](data/processed/image_features.csv)
