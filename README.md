@@ -33,7 +33,7 @@ Place both files in [data/raw/customer_social_profiles.csv](data/raw/customer_so
 - Product target column should be one of:
 	- `product`
 	- `product_name`
-	- `purchased_product`
+	- `purchased_product`     
 	- `item`
 	- `target`
 
@@ -58,7 +58,7 @@ data/audio/
 		yes_approve.wav
 		confirm_transaction.wav
 	member_2/
-		...
+		.. ..
 	unauthorized/
 		fake_attempt.wav
 
