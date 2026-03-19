@@ -130,3 +130,27 @@ Expected logic:
 	- [src/audio_pipeline.py](src/audio_pipeline.py)
 	- [src/train_models.py](src/train_models.py)
 	- [src/auth_system_cli.py](src/auth_system_cli.py)
+
+## 8) Current Results (Latest Run)
+
+Model metrics are saved in [reports/metrics.json](reports/metrics.json).
+
+- Facial recognition:
+	- Accuracy: 0.8750
+	- F1-weighted: 0.8250
+	- Loss: 0.4302
+- Voice verification:
+	- Accuracy: 0.8333
+	- F1-weighted: 0.7667
+	- Loss: 0.3759
+- Product recommendation:
+	- Accuracy: 0.7955
+	- F1-weighted: 0.7878
+	- Loss: 0.7998
+
+## 9) Final Team Handoff
+
+- Fill [reports/team_contributions_template.md](reports/team_contributions_template.md)
+- Follow [reports/submission_checklist.md](reports/submission_checklist.md)
+- Build and share Colab notebook
+- Record demo video (authorized and unauthorized scenarios)
