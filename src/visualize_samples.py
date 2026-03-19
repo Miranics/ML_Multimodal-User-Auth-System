@@ -6,6 +6,7 @@ from pathlib import Path
 import librosa
 import librosa.display
 import matplotlib.pyplot as plt
+import numpy as np
 
 from src.config import AUDIO_DIR, IMAGES_DIR, REPORTS_DIR
 
@@ -47,7 +48,7 @@ def plot_audio_wave_and_spec(audio_root: Path, out_dir: Path) -> None:
         librosa.display.waveshow(y, sr=sr, ax=axes[0])
         axes[0].set_title(f"Waveform: {p.name} ({p.parent.name})")
 
-        S = librosa.amplitude_to_db(abs(librosa.stft(y)), ref=max)
+        S = librosa.amplitude_to_db(abs(librosa.stft(y)), ref=np.max)
         img = librosa.display.specshow(S, sr=sr, x_axis="time", y_axis="log", ax=axes[1])
         axes[1].set_title("Spectrogram")
         fig.colorbar(img, ax=axes[1], format="%+2.0f dB")

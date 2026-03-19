@@ -24,9 +24,14 @@ from src.train_models import _build_product_frame, _infer_product_target
 
 def _predict_identity(model, x: np.ndarray) -> tuple[str, float]:
     x2 = x.reshape(1, -1)
-    pred = str(model.predict(x2)[0])
+    if hasattr(model, "feature_names_in_"):
+        x_input = pd.DataFrame(x2, columns=model.feature_names_in_)
+    else:
+        x_input = x2
+
+    pred = str(model.predict(x_input)[0])
     if hasattr(model, "predict_proba"):
-        proba = model.predict_proba(x2)
+        proba = model.predict_proba(x_input)
         conf = float(np.max(proba))
     else:
         conf = 1.0

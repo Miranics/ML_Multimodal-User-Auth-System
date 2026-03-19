@@ -130,6 +130,8 @@ def train_all(
 
     y_raw = product_df[target_col].astype(str)
     X = product_df.drop(columns=[target_col])
+    # If multimodal keys do not overlap merged IDs, joined feature columns can be all-NaN.
+    X = X.dropna(axis=1, how="all")
 
     numeric_features = X.select_dtypes(include=[np.number]).columns.tolist()
     categorical_features = [c for c in X.columns if c not in numeric_features]
