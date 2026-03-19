@@ -39,6 +39,7 @@ Security checkpoints:
 ├── reports/
 ├── src/
 ├── requirements.txt
+├──    multimodal_pipeline.ipynb
 └── README.md
 ```
 
@@ -179,9 +180,7 @@ From [reports/metrics.json](reports/metrics.json):
 
 ## Notebook and Reporting
 
-- Main notebook: [formative2_multimodal_pipeline.ipynb](formative2_multimodal_pipeline.ipynb)
-- Team checklist: [reports/submission_checklist.md](reports/submission_checklist.md)
-- Contribution template: [reports/team_contributions_template.md](reports/team_contributions_template.md)
+- Main notebook: [multimodal_pipeline.ipynb](multimodal_pipeline.ipynb)
 
 ## Troubleshooting
 
