@@ -39,7 +39,7 @@ Security checkpoints:
 ├── reports/
 ├── src/
 ├── requirements.txt
-├──    multimodal_pipeline.ipynb
+├── multimodal_pipeline.ipynb
 └── README.md
 ```
 
