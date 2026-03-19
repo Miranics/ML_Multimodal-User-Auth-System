@@ -1,156 +1,198 @@
-# ML_Multimodal-User-Auth-System
+# ML Multimodal User Auth System
 
-Multimodal authentication + product recommendation pipeline for the 
-This repository implements:
-- Tabular merge + feature engineering
-- Face feature extraction + face identity model
-- Voice feature extraction + voice identity/verification model
+End-to-end multimodal machine learning pipeline for secure product recommendation. The system authenticates a user using face and voice checks before allowing a product prediction.
+
+## Overview
+
+This project implements:
+- Tabular data merge and feature engineering
+- Face feature extraction and identity classification
+- Voice feature extraction and identity classification
 - Product recommendation model
-- Command-line flow that simulates:
-	- Face check -> product prediction step unlocked
-	- Voice check -> prediction approved or denied
+- CLI flow for authorized and unauthorized simulation
 
-## 1) Project Structure
+## Architecture
 
-LICENSE
-README.md
-requirements.txt
-src/
-data/
-	raw/
-	images/
-	audio/
-	processed/
-artifacts/
-reports/
+Authentication and recommendation flow:
 
-## 2) Expected Input Data
+1. User submits face image
+2. Face model predicts identity
+3. If face is valid, product model prepares prediction
+4. User submits voice sample
+5. Voice model verifies identity
+6. If face and voice match, product prediction is displayed
 
-### Tabular files (required)
-Place both files in [data/raw/customer_social_profiles.csv](data/raw/customer_social_profiles.csv) and [data/raw/customer_transactions.csv](data/raw/customer_transactions.csv).
+Security checkpoints:
+- Face fail -> access denied
+- Voice fail -> access denied
 
-- A shared key is required (preferred: `customer_id`)
-- Product target column should be one of:
-	- `product`
-	- `product_name`
-	- `purchased_product`     
-	- `item`
-	- `target`
+## Repository Structure
 
-### Image files (required)
-Store face images using member folders:
+```text
+.
+├── data/
+│   ├── raw/
+│   ├── images/
+│   ├── audio/
+│   └── processed/
+├── artifacts/
+├── reports/
+├── src/
+├── requirements.txt
+└── README.md
+```
 
+## Input Data Requirements
+
+### Tabular data
+
+Place files in:
+- [data/raw/customer_social_profiles.csv](data/raw/customer_social_profiles.csv)
+- [data/raw/customer_transactions.csv](data/raw/customer_transactions.csv)
+
+Notes:
+- Both tables should be joinable by customer identity.
+- Product target may be any of: `product`, `product_name`, `purchased_product`, `item`, `target`, `product_category`.
+
+### Image data
+
+Use member-based folders:
+
+```text
 data/images/
-	member_1/
-		neutral.jpg
-		smile.jpg
-		surprised.jpg
-	member_2/
-		...
-	unauthorized/
-		intruder1.jpg
+  member_1/
+    neutral.jpg
+    smile.jpg
+    surprised.jpg
+  member_2/
+  member_3/
+  unauthorized/
+    unauthorized.jpg
+```
 
-### Audio files (required)
-Store audio samples using member folders:
+### Audio data
 
+Use member-based folders:
+
+```text
 data/audio/
-	member_1/
-		yes_approve.wav
-		confirm_transaction.wav
-	member_2/
-		.. ..
-	unauthorized/
-		fake_attempt.wav
+  member_1/
+    yes_approve.wav
+    confirm_transaction.wav
+  member_2/
+  member_3/
+  unauthorized/
+    unauthorized voice.wav
+```
 
-## 3) Setup
+## Setup
 
-1. Create and activate a Python environment
-2. Install dependencies:
+1. Create environment
 
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+2. Install dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
-## 4) Run Steps
+## Quick Start (Step by Step)
 
-### Step A: Merge tabular data
+1. Merge raw tabular datasets
 
+```bash
 python -m src.data_merge
+```
 
-Output: [data/processed/merged_features.csv](data/processed/merged_features.csv)
+2. Extract image features with augmentations
 
-### Step B: Extract image features with augmentations
-
+```bash
 python -m src.image_pipeline
+```
 
-Output: [data/processed/image_features.csv](data/processed/image_features.csv)
+3. Extract audio features with augmentations
 
-### Step C: Extract audio features with augmentations
-
+```bash
 python -m src.audio_pipeline
+```
 
-Output: [data/processed/audio_features.csv](data/processed/audio_features.csv)
+4. Train all models
 
-### Step D: Train all models
-
+```bash
 python -m src.train_models
+```
 
-Outputs:
+5. Generate report visuals
+
+```bash
+python -m src.visualize_samples
+```
+
+6. Run authorized demo
+
+```bash
+python -m src.auth_system_cli --face-image "data/images/member_1/neutral.jpg" --voice-audio "data/audio/member_1/yes_approve.wav"
+```
+
+7. Run unauthorized demo
+
+```bash
+python -m src.auth_system_cli --face-image "data/images/unauthorized/unauthorized.jpg" --voice-audio "data/audio/unauthorized/unauthorized voice.wav"
+```
+
+## One-Command Pipeline
+
+```bash
+python -m src.run_pipeline
+```
+
+## Outputs
+
+Core generated files:
+- [data/processed/merged_features.csv](data/processed/merged_features.csv)
+- [data/processed/image_features.csv](data/processed/image_features.csv)
+- [data/processed/audio_features.csv](data/processed/audio_features.csv)
 - [artifacts/face_model.joblib](artifacts/face_model.joblib)
 - [artifacts/voice_model.joblib](artifacts/voice_model.joblib)
 - [artifacts/product_model.joblib](artifacts/product_model.joblib)
 - [reports/metrics.json](reports/metrics.json)
 
-### Optional one-shot pipeline
+## Current Metrics (Latest Local Run)
 
-python -m src.run_pipeline
+From [reports/metrics.json](reports/metrics.json):
+- Face model: accuracy 0.8750, F1-weighted 0.8250, loss 0.4302
+- Voice model: accuracy 0.8333, F1-weighted 0.7667, loss 0.3759
+- Product model: accuracy 0.7955, F1-weighted 0.7878, loss 0.7998
 
-## 5) Visualize sample images/audio for report
+## Scripts Reference
 
-python -m src.visualize_samples
+- [src/data_merge.py](src/data_merge.py): data cleaning, merge, feature engineering
+- [src/image_pipeline.py](src/image_pipeline.py): image augmentation and feature extraction
+- [src/audio_pipeline.py](src/audio_pipeline.py): audio augmentation and feature extraction
+- [src/train_models.py](src/train_models.py): training and evaluation for all models
+- [src/auth_system_cli.py](src/auth_system_cli.py): end-to-end system simulation
+- [src/visualize_samples.py](src/visualize_samples.py): image and audio visual reports
 
-Outputs are saved in [reports](reports).
+## Notebook and Reporting
 
-## 6) Run CLI system demo
+- Main notebook: [formative2_multimodal_pipeline.ipynb](formative2_multimodal_pipeline.ipynb)
+- Team checklist: [reports/submission_checklist.md](reports/submission_checklist.md)
+- Contribution template: [reports/team_contributions_template.md](reports/team_contributions_template.md)
 
-python -m src.auth_system_cli --face-image "data/images/member_1/neutral.jpg" --voice-audio "data/audio/member_1/yes_approve.wav"
+## Troubleshooting
 
-Expected logic:
-1. Face identity predicted
-2. If unauthorized or low confidence -> denied
-3. Product prediction prepared
-4. Voice identity predicted
-5. If voice matches face and confidence is enough -> approved and product displayed
+1. Virtual environment not detected
+- Run commands with `.venv/bin/python` directly.
 
-## 7) Deliverables Mapping 
+2. Missing dependency errors
+- Reinstall with `pip install -r requirements.txt` inside `.venv`.
 
-- Merged dataset + feature engineering: [data/processed/merged_features.csv](data/processed/merged_features.csv)
-- Image features: [data/processed/image_features.csv](data/processed/image_features.csv)
-- Audio features: [data/processed/audio_features.csv](data/processed/audio_features.csv)
-- Scripts for three models and CLI:
-	- [src/image_pipeline.py](src/image_pipeline.py)
-	- [src/audio_pipeline.py](src/audio_pipeline.py)
-	- [src/train_models.py](src/train_models.py)
-	- [src/auth_system_cli.py](src/auth_system_cli.py)
+3. Merge output empty
+- Verify tabular ID alignment and formatting across both raw CSV files.
 
-## 8) Current Results (Latest Run)
-
-Model metrics are saved in [reports/metrics.json](reports/metrics.json).
-
-- Facial recognition:
-	- Accuracy: 0.8750
-	- F1-weighted: 0.8250
-	- Loss: 0.4302
-- Voice verification:
-	- Accuracy: 0.8333
-	- F1-weighted: 0.7667
-	- Loss: 0.3759
-- Product recommendation:
-	- Accuracy: 0.7955
-	- F1-weighted: 0.7878
-	- Loss: 0.7998
-
-## 9) Final Team Handoff
-
-- Fill [reports/team_contributions_template.md](reports/team_contributions_template.md)
-- Follow [reports/submission_checklist.md](reports/submission_checklist.md)
-- Build and share Colab notebook
-- Record demo video (authorized and unauthorized scenarios)
+4. Colab notebook errors from old cached file
+- Re-upload latest notebook file or upload with a new filename.
