@@ -14,6 +14,6 @@ venv/
 # reports/*.json
 
 # OS/Editor
-.DS_Store
+# .DS_Store
 .vscode/
-.ipynb_checkpoints/
+# .ipynb_checkpoints/
