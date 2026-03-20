@@ -1,0 +1,193 @@
+Multimodal User Authentication and Product Recommendation System
+Detailed Project Report
+
+Student and Group Information
+Group Name: [Insert Group Name]
+Course: [Insert Course Name]
+Instructor: [Insert Instructor Name]
+Submission Date: [Insert Date]
+Team Members: [Insert Member 1, Member 2, Member 3]
+
+1. Introduction
+This project presents a multimodal machine learning pipeline that combines facial recognition, voice verification, and tabular customer behavior modeling to secure access to product recommendations. The central idea is that predictive output should not be shown until identity is validated through two checkpoints. This makes the recommendation stage both useful and controlled.
+
+The implemented workflow integrates three modalities: customer profile and transaction records, face images, and voice recordings. The final system demonstrates both positive authorization behavior and safe denial behavior when authentication fails.
+
+2. Project Objectives
+The project objectives were aligned to implementation quality and rubric outcomes:
+- Merge customer social profile and transaction datasets into a validated engineered dataset.
+- Build image and audio preprocessing pipelines with augmentation and feature extraction.
+- Implement three models: facial recognition, voice verification, and product recommendation.
+- Evaluate each model with Accuracy, weighted F1-score, and Loss.
+- Apply multimodal decision logic that releases recommendation output only after successful identity checks.
+- Demonstrate authorized and unauthorized flows using a command-line simulation.
+
+3. System Architecture and Decision Workflow
+3.1 End-to-End Operational Flow
+The runtime flow is sequential. A user first submits a face image and identity is predicted by the face model. If the face is unknown or confidence is below threshold, access is denied immediately. If face validation passes, recommendation processing is unlocked. The user then submits a voice sample for second-factor verification. Recommendation output is released only when voice identity matches and passes threshold conditions.
+
+3.2 Security and Reliability Rationale
+This architecture reduces single-modality risk by requiring two independent biometric confirmations before decision release. It also improves interpretability because failure points are explicit and auditable.
+
+Figure 1. End-to-End User Access Flow
+What to insert: A flowchart showing Start -> Face Validation -> Product Recommendation Stage -> Voice Validation -> Display Prediction, with deny branches from face fail and voice fail.
+
+Figure 2. Technical Pipeline Architecture
+What to insert: A diagram showing data/raw -> preprocessing/feature extraction -> trained artifacts -> CLI decision logic.
+
+4. Data Preparation, Cleaning, and Merge Validation
+4.1 Data Sources and Folder Standardization
+Two structured datasets were used as tabular inputs: customer_social_profiles.csv and customer_transactions.csv. Biometric inputs were organized in member-based folders for both images and audio, with unauthorized folders used for negative-path simulation. A consistent project structure across raw, processed, artifacts, and reports directories improved reproducibility and reduced path-related execution errors.
+
+Figure 3. Project Data Organization
+What to insert: VS Code Explorer capture showing data/raw, data/images/member folders, data/audio/member folders, data/processed, artifacts, and reports.
+
+4.2 Pre-Merge Data Quality Checks
+Before merge, both tabular sources were profiled for duplicates, null values, datatype consistency, and key compatibility. Identity fields were inspected and normalized when needed so records could align even when source formats differed.
+
+4.3 Merge Method and Post-Merge Validation
+The profile and transaction datasets were merged using customer identity linkage and feature engineering was applied to produce merged_features.csv. Post-merge checks confirmed row counts, null behavior, schema consistency, and target availability for recommendation training.
+
+Table 1. Data Cleaning and Merge Validation Summary
+What to insert: A table with columns Dataset, Rows, Columns, Null Count, Duplicate Count, Join Key, Validation Notes.
+
+Figure 4. Merged Dataset Sample
+What to insert: First 5-10 rows of merged_features.csv.
+
+5. Exploratory Data Analysis and Insight Generation
+5.1 Statistical Profiling
+Summary statistics and datatype inspections were produced for source and merged datasets. This revealed variable ranges, category spread, and potential skewness patterns relevant to model behavior.
+
+5.2 Visual Diagnostics
+Three core diagnostics were generated to meet EDA quality requirements: a distribution plot for engagement-related variables, an outlier-focused boxplot for purchase amount, and a correlation heatmap for numeric transaction features.
+
+5.3 Interpretive Value
+These analyses informed feature engineering choices and provided clear narrative support for model outcomes. In particular, outlier and distribution behavior helped contextualize expected variance in model performance.
+
+Figure 5. Distribution Analysis
+What to insert: Histogram/KDE plot for engagement_score or similar variable.
+
+Figure 6. Outlier Analysis
+What to insert: Boxplot for purchase_amount.
+
+Figure 7. Correlation Analysis
+What to insert: Correlation heatmap of numeric variables.
+
+6. Image and Audio Processing with Feature Engineering
+6.1 Image Collection, Augmentation, and Features
+Each member contributed three facial expressions: neutral, smile, and surprised. Image augmentation included rotation, horizontal flip, and grayscale conversion to increase robustness to orientation and appearance variation. Feature extraction combined histogram descriptors and HOG descriptors, and outputs were stored in image_features.csv.
+
+6.2 Audio Collection, Quality Review, Augmentation, and Features
+Each member recorded at least two required phrases: "Yes, approve" and "Confirm transaction." Audio quality was reviewed through waveform and spectrogram plots. Augmentation included additive noise, time stretching, and pitch shifting. Features were extracted using MFCC statistics, spectral roll-off, and energy-related descriptors, and stored in audio_features.csv.
+
+6.3 Rubric Alignment
+This stage satisfies image quantity/diversity, image augmentation, audio quality visualization, audio augmentation, and feature extraction criteria.
+
+Figure 8. Member Face Samples
+What to insert: One face sample per member from image folders.
+
+Figure 9. Image Augmentation Examples
+What to insert: Original, rotated, flipped, and grayscale versions of one sample.
+
+Figure 10. Image Feature File Preview
+What to insert: Head of image_features.csv with feature columns visible.
+
+Figure 11. Audio Waveform and Spectrogram
+What to insert: One waveform and one spectrogram from member audio.
+
+Figure 12. Audio Augmentation Examples
+What to insert: Original vs noise vs stretch vs pitch-shifted waveform panels.
+
+Figure 13. Audio Feature File Preview
+What to insert: Head of audio_features.csv with feature columns visible.
+
+7. Model Implementation
+7.1 Facial Recognition Model
+The facial model was trained on engineered image features to classify identity labels. Tree-based classification was chosen because of strong performance on tabularized handcrafted feature vectors and minimal preprocessing overhead.
+
+7.2 Voice Verification Model
+The voice model was trained on engineered audio features to classify identity. This model serves as the second-factor verification component in runtime decision logic.
+
+7.3 Product Recommendation Model
+The recommendation model was trained on merged customer behavior features with multimodal alignment where available. Pipeline preprocessing handled mixed numeric and categorical fields for consistent inference behavior.
+
+7.4 Training Reproducibility and Artifact Persistence
+Training used deterministic split settings and serialized model outputs for reproducible reuse. Saved artifacts were consumed directly by CLI simulation.
+
+Table 2. Model Implementation Summary
+What to insert: A table with columns Model, Input Features, Output, Algorithm, Preprocessing, Artifact File.
+
+8. Evaluation Results and Multimodal Logic Performance
+8.1 Evaluation Metrics
+All models were evaluated using Accuracy, weighted F1-score, and Loss to capture correctness, class-aware behavior, and confidence-sensitive performance quality.
+
+8.2 Final Results
+Current recorded metrics are:
+- Facial Recognition: Accuracy 0.8750, F1-weighted 0.8250, Loss 0.4302
+- Voice Verification: Accuracy 0.8333, F1-weighted 0.7667, Loss 0.3759
+- Product Recommendation: Accuracy 0.7955, F1-weighted 0.7878, Loss 0.7998
+
+8.3 Interpretation
+Identity models achieved strong performance for the available sample scale, while recommendation performance is practical for the current feature space. The multimodal gate increases trustworthiness by requiring agreement across two biometric checks prior to output release.
+
+Table 3. Final Metrics by Model
+What to insert: A compact metrics table with Model, Accuracy, F1-weighted, Loss.
+
+Figure 14. Metrics Evidence File
+What to insert: reports/metrics.json content view.
+
+Figure 15. Multimodal Decision Rule Diagram
+What to insert: Rule flow with explicit allow/deny branches and threshold checks.
+
+9. System Demonstration and Deliverable Evidence
+9.1 Authorized and Unauthorized Simulation
+The CLI simulation demonstrated both valid and invalid paths. In the authorized path, matching face and voice produced recommendation approval. In the unauthorized path, unknown or mismatched biometric input caused access denial.
+
+9.2 Produced Artifacts
+The final output package includes merged_features.csv, image_features.csv, audio_features.csv, trained model artifacts, metrics JSON, and visual report assets. These files provide direct reproducibility and evidence for assessment.
+
+9.3 Limitations and Improvement Plan
+Current limitations include small biometric sample size, single split evaluation, and limited anti-spoofing hardening. Recommended improvements include larger and more diverse data, cross-validation, calibration experiments, and deep embedding comparisons for face and voice.
+
+Figure 16. Authorized CLI Demonstration Output
+What to insert: Terminal capture showing successful face and voice verification and product display.
+
+Figure 17. Unauthorized CLI Demonstration Output
+What to insert: Terminal capture showing denied access after failed verification.
+
+Figure 18. Final Artifact Inventory
+What to insert: Folder view of artifacts and reports outputs.
+
+10. Conclusion, Ethics, and Team Contributions
+This project delivers a complete multimodal authentication and recommendation system that aligns with assignment requirements for data merge validation, preprocessing depth, augmentation coverage, model implementation, evaluation, and system simulation. The pipeline is functional, reproducible, and structured for both local execution and notebook-based reporting.
+
+From an ethics and privacy perspective, biometric collection requires explicit consent, controlled access, and clear communication that this system is an academic prototype. Production deployment would require stronger fairness validation, governance controls, and security hardening.
+
+Team Contributions
+Member 1: [Insert responsibilities]
+Member 2: [Insert responsibilities]
+Member 3: [Insert responsibilities]
+Integration and final review: [Insert responsible member]
+
+Appendix A. Evidence Placement Checklist
+Figure 1. End-to-end user access flow.
+Figure 2. Technical pipeline architecture.
+Figure 3. Project data organization.
+Table 1. Data cleaning and merge validation summary.
+Figure 4. Merged dataset sample.
+Figure 5. Distribution analysis.
+Figure 6. Outlier analysis.
+Figure 7. Correlation analysis.
+Figure 8. Member face samples.
+Figure 9. Image augmentation examples.
+Figure 10. Image feature file preview.
+Figure 11. Audio waveform and spectrogram.
+Figure 12. Audio augmentation examples.
+Figure 13. Audio feature file preview.
+Table 2. Model implementation summary.
+Table 3. Final metrics by model.
+Figure 14. Metrics evidence file.
+Figure 15. Multimodal decision rule diagram.
+Figure 16. Authorized CLI demonstration output.
+Figure 17. Unauthorized CLI demonstration output.
+Figure 18. Final artifact inventory.
