@@ -1,0 +1,17 @@
+{
+  "facial_recognition": {
+    "accuracy": 0.875,
+    "f1_weighted": 0.825,
+    "loss": 0.37512345145684123
+  },
+  "voice_verification": {
+    "accuracy": 0.8333333333333334,
+    "f1_weighted": 0.7666666666666666,
+    "loss": 0.3856968425572152
+  },
+  "product_recommendation": {
+    "accuracy": 0.7954545454545454,
+    "f1_weighted": 0.7878440513734631,
+    "loss": 0.7998468066806727
+  }
+}
