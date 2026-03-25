@@ -16,7 +16,7 @@ This project implements:
 Authentication and recommendation flow:
 
 1. User submits face image
-2. Face model predicts identity
+2. Face model predicts identity                    
 3. If face is valid, product model prepares prediction
 4. User submits voice sample
 5. Voice model verifies identity
