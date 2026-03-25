@@ -2,7 +2,7 @@
 
 End-to-end multimodal machine learning pipeline for secure product recommendation. The system authenticates a user using face and voice checks before allowing a product prediction.
 
-## Overview
+## Overview                             
 
 This project implements:
 - Tabular data merge and feature engineering
