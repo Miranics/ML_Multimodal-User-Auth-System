@@ -26,7 +26,7 @@ Security checkpoints:
 - Face fail -> access denied
 - Voice fail -> access denied
 
-## Repository Structure
+## Repository Structure                                  
 
 ```text
 .
@@ -86,7 +86,8 @@ data/audio/
     unauthorized voice.wav
 ```
 
-## Setup
+## Setup                
+
 
 1. Create environment
 
