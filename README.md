@@ -25,8 +25,8 @@ Authentication and recommendation flow:
 Security checkpoints:
 - Face fail -> access denied
 - Voice fail -> access denied
-
-## Repository Structure                                  
+                                
+## Repository Structure..                                
 
 ```text
 .
