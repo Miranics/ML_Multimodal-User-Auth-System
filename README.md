@@ -59,7 +59,7 @@ Notes:
 
 Use member-based folders:
 
-```text
+```text..
 data/images/
   member_1/
     neutral.jpg
