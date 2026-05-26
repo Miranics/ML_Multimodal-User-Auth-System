@@ -9,7 +9,7 @@ This project implements:
 - Face feature extraction and identity classification
 - Voice feature extraction and identity classification
 - Product recommendation model
-- CLI flow for authorized and unauthorized simulation                                                  
+- CLI flow for authorized and unauthorized simulation..                                                  
 
 ## Architecture
 
