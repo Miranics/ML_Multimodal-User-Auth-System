@@ -5,7 +5,7 @@ End-to-end multimodal machine learning pipeline for secure product recommendatio
 ## Overview                             
                                                            
 This project implements:      
-- Tabular data merge and feature engineering....
+- Tabular data merge and feature engineering
 - Face feature extraction and identity classification
 - Voice feature extraction and identity classification
 - Product recommendation model
