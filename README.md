@@ -20,7 +20,7 @@ Authentication and recommendation flow:
 3. If face is valid, product model prepares prediction
 4. User submits voice sample
 5. Voice model verifies identity
-6. If face and voice match, product prediction is displayed
+6. If face and voice match, product prediction is displayed..
 
 Security checkpoints:
 - Face fail -> access denied
