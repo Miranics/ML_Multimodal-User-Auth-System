@@ -84,7 +84,7 @@ def run_transaction(face_image: Path, voice_audio: Path, threshold: float = 0.55
     print(f"Voice identity: {voice_user} (confidence={voice_conf:.3f})")
 
     if voice_user == face_user and voice_user.lower() != "unauthorized" and voice_conf >= threshold:
-        print("VOICE VERIFIED ✅")
+        print("VOICE VERIFIED")
         print(f"AUTHORIZED USER: {face_user}")
         print(f"DISPLAY PREDICTED PRODUCT: {pred_product}")
     else:
