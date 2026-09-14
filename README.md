@@ -2,7 +2,7 @@
 
 End-to-end multimodal machine learning pipeline for secure product recommendation. The system authenticates a user using face and voice checks before allowing a product prediction.
 
-## Overview                             
+## Overview                                 
                                                            
 This project implements:      
 - Tabular data merge and feature engineering
@@ -196,3 +196,4 @@ From [reports/metrics.json](reports/metrics.json):
 
 4. Colab notebook errors from old cached file
 - Re-upload latest notebook file or upload with a new filename.    
+..
